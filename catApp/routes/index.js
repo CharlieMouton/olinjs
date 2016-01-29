@@ -82,7 +82,7 @@ function newCat(){
   return cat;
 }
 
-// create new lizard named Bob
+// create new cat with randomly assigned name, age, and color
 function create(req, res) {
     var cat = db.add(newCat());
     if (cat.color[1] === "") {
