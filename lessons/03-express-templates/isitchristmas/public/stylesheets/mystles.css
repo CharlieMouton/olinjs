@@ -1,0 +1,4 @@
+div.container {
+min-height: 10em;
+display: table-cell;
+vertical-align: middle }
