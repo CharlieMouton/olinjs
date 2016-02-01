@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var exphbs  = require('express-handlebars');
+var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/robots');
 
@@ -19,5 +20,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', index.home);
+app.get('/robotlist', index.robotList);
 
 app.listen(3000);
