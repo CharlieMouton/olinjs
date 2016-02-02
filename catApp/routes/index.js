@@ -11,7 +11,9 @@ var colors = [' orange', ' brown', ' black', ' yellow', ' gray', ' charcoal', ' 
 //get all cat names
 function home(req, res) {
   catSchema.find({}, function(err, cats){
-      catsFilt = cats.sort({age: -1})
+      catsFilt = cats.sort(function(a,b){
+        return a.age - b.age
+      });
       res.render("home", {"catList":catsFilt, "Created": "List of kitties currently in the database."})
   });
 }
@@ -21,7 +23,9 @@ function colorSort( req, res) {
   col = " " + req.path.split('/').slice(-1)[0]
   console.log(col);
   catSchema.find({color: col}, function(err, cats){
-    catsFilt = cats.sort({age: 1})
+    catsFilt = cats.sort(function(a,b){
+      return a.age - b.age
+    });
     res.render("home", {"catList": catsFilt, "Created": "These kitties have" + col + " colored fur!"});
   })
 }
@@ -29,15 +33,21 @@ function colorSort( req, res) {
 function ageFilter(req, res){
   var ages = req.path.split('/').slice(-2)
   catSchema.find({age: {$gt:ages[0], $lt: ages[1]}}, function(err, cats){
-    catsFilt = cats.sort({age: 1})
+    catsFilt = cats.sort(function(a,b){
+      return a.age - b.age
+    });
     res.render("home", {"catList": catsFilt, "Created": "These kitties fit your given age range."});
   })
 }
 
 function catDel(req, res) {
   catSchema.find({}, function(err, cats){
-    oldestCat = cats.sort({age: -1})[0]
-    catSchema.find({name:oldestCat.name, age:oldestCat.age, color:oldestCat.color})
+    var catsFilt = cats.sort(function(a,b){
+      return a.age - b.age
+    });
+    console.log(catsFilt[0].fname);
+    var oldestCat = catsFilt.slice(-1)[0]
+    catSchema.find({fname:oldestCat.fname, age:oldestCat.age, color:oldestCat.color})
       .remove()
       .exec()
     res.render("create", {"catList": String(oldestCat.fname + " " + oldestCat.lname + ", " + oldestCat.age + " years old, with" + oldestCat.color[0] + " &" + oldestCat.color[1] + " fur."), 'Created': "The following geriatric feline is in a better place now:"});
