@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var exphbs  = require('express-handlebars');
 var mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/robots');
+mongoose.connect('mongodb://localhost/restaurant');
 
 var app = express();
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -19,6 +19,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', index.home);
+app.get('/kitchen', index.kitchen);
+app.get('/ingredients', index.ingredients);
+app.get('/order', index.order);
 
 app.listen(3000);

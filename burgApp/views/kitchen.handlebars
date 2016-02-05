@@ -1,0 +1,8 @@
+<h1> List of Orders </h1>
+<form id="kitchen" action="getCat" method="POST">
+<ul>
+{{#each orders}}
+  <li>{{this.id}}:  {{this.ingredients}} <input type="submit" value="Order Up!"></li>
+{{/each}}
+</ul>
+</form>
