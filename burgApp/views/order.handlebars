@@ -1,0 +1,49 @@
+<h1> Menu </h1>
+
+<h3> The Dark Knight ............................................................... $6.50 </h3>
+<h5> (Ground beef patty on white bread with lettuce, grilled onions, and mayonnaise) </h5>
+
+<h3> The Riddler ................................................................... $6.25 </h3>
+<h5> (Ground beef patty on wheat bread with lettuce, pickles, and mystery sauce)  </h5>
+
+<h3> The Mad Hatter ................................................................ $7.25 </h3>
+<h5> (Ground beef patty on white bread with mushrooms, grilled onions, and ketchup)  </h5>
+
+<h3> The Joker ..................................................................... $8.00 </h3>
+<h5> (Ground beef patty on white bread with pickles, bacon, and mayonnaise)  </h5>
+
+<h2> Place your Order! </h2>
+<form id="order">
+<div class="container" id="right" >
+<span>
+<h3> Toppings </h3>
+<select class="ui fluid search dropdown" multiple="" size="10">
+  {{#each toppings}}
+    <option value="{{this._id}}">{{this.name}}</option>
+  {{/each}}
+</select>
+</span>
+<!-- </div> -->
+
+<!-- <div id = 'center'> -->
+<span>
+<h3> Bun </h3>
+<select class="ui fluid search dropdown" size="4">
+  {{#each buns}}
+    <option value="{{this}}">{{this}}</option>
+  {{/each}}
+</select>
+</span>
+<!-- </div> -->
+
+<!-- <div id='right'> -->
+<span>
+<h3> Patty </h3>
+<select class="ui fluid search dropdown" size="4">
+  {{#each meats}}
+    <option value="{{this}}">{{this}}</option>
+  {{/each}}
+</select>
+</span>
+</form>
+</div>

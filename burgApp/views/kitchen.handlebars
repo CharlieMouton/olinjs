@@ -1,8 +1,8 @@
 <h1> List of Orders </h1>
-<form id="kitchen" action="getCat" method="POST">
+<form id="kitchen">
 <ul>
 {{#each orders}}
-  <li>{{this.id}}:  {{this.ingredients}} <input type="submit" value="Order Up!"></li>
-{{/each}}
+  <span><li><input type="checkbox" name='orders' value="{{this._id}}" </br> {{this.id}}:  <ul>{{#each this.toppings}} <li> {{this}} </li> {{/each}} <li> on {{this.bread}} bread </li> </ul></li> {{/each}} </span>
 </ul>
+<input type="submit" value="Order Up!">
 </form>

@@ -1,8 +1,8 @@
 var $form = $("#kitchen");
 
 var onSuccess = function(data, status) {
-  var img = "<img src='"+data+"'/>";
-  $("#result").html(img);
+  // console.log(data);
+  $("[name='orders']:checked").parent().html("Order Resolved!");
 };
 
 var onError = function(data, status) {
@@ -12,11 +12,14 @@ var onError = function(data, status) {
 
 $form.submit(function(event) {
   event.preventDefault();
-  var mood = $form.find("[name='mood']:checked").val();
-  var name = $form.find("[name='name']").val();
-  $.get("getCat", {
-    mood: mood,
-    name: name
+  var vals = []
+  var order = $form.find("[name='orders']:checked");
+// // Attempt to be able to resolve multiple orders
+  // order.forEach(function(element,index,array){
+  //   vals.push(element.attr('value'))
+  // })
+  $.post("kitchen",{
+    orders: order.attr('value')
   })
     .done(onSuccess)
     .error(onError);

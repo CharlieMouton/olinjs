@@ -1,5 +1,6 @@
 var express = require('express');
 var index = require('./routes/index');
+var resorder = require('./routes/resOrder');
 var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -20,7 +21,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/kitchen', index.kitchen);
+app.post('/kitchen', resorder.orderPOST);
 app.get('/ingredients', index.ingredients);
 app.get('/order', index.order);
+// app.post('/order', resorder.orderGET);
 
 app.listen(3000);

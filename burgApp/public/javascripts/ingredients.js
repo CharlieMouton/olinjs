@@ -12,7 +12,7 @@ var onError = function(data, status) {
 
 $form.submit(function(event) {
   event.preventDefault();
-  var mood = $form.find("[name='mood']:checked").val();
+  var order = $form.find("[name='mood']:checked").val();
   var name = $form.find("[name='name']").val();
   $.get("getCat", {
     mood: mood,
