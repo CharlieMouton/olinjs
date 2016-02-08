@@ -23,6 +23,7 @@ function colorSort( req, res) {
   col = " " + req.path.split('/').slice(-1)[0]
   console.log(col);
   msg = catList()
+  // getting functional I see. Filter, map, reduce, and sort are awesome tools to learn
   msgFilt = msg.filter(function(obj) {
     return obj.color[0] == col || obj.color[1] == col;
   })
@@ -48,9 +49,10 @@ function catDel(req, res) {
 function catList () {
   var catList = db.getAll();
   var msg = [];
+  // nice forEach :D
   catList.forEach(function(cat){
-  msg.push(cat) //String(cat.fname + " " + cat.lname + ", " + cat.age + ", " + cat.color)
-})
+    msg.push(cat) //String(cat.fname + " " + cat.lname + ", " + cat.age + ", " + cat.color)
+  })
   console.log(msg);
   if (catList === []) {
     return "No cats have been created!"
@@ -82,7 +84,7 @@ function newCat(){
   return cat;
 }
 
-// create new lizard named Bob
+// create new lizard named Bob, whose Bob and why is he a lizard?
 function create(req, res) {
     var cat = db.add(newCat());
     if (cat.color[1] === "") {

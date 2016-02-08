@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/cats', index.home);
 app.get('/cats/new', index.create);
+// What I said on the other branch
 app.get('/cats/bycolor/*', index.colorSort);
 app.get('/cats/delete/old', index.catDel);
 
