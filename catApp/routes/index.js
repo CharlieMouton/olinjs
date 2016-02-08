@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
+//Not needed no more
 var db = require('../fakeDatabase');
+// by convention this should be called Cat, not catSchema. 
 var catSchema = require('../models/catSchema.js')
 var fnames = ['Fluffy', 'Miss', 'Mister', 'Snow', 'Misty', 'Furry', 'Dreefus',
 'Hissy', 'Sam', 'General', 'Colonel', 'Buzz'];
@@ -22,6 +24,9 @@ function colorSort( req, res) {
   console.log(req.path);
   col = " " + req.path.split('/').slice(-1)[0]
   console.log(col);
+  //Having you own sorting function is nice but I did find a good working method using mongoose after we talked. It is:
+  //
+  // catSchema.find({}).sort('-age').exec(function(err, cats){})
   catSchema.find({color: col}, function(err, cats){
     catsFilt = cats.sort(function(a,b){
       return a.age - b.age
@@ -41,6 +46,8 @@ function ageFilter(req, res){
 }
 
 function catDel(req, res) {
+  //Same thing but
+  // catSchema.findOne({}).sort('-age').exec(function(err, cats){})
   catSchema.find({}, function(err, cats){
     var catsFilt = cats.sort(function(a,b){
       return a.age - b.age
@@ -68,7 +75,7 @@ function catDel(req, res) {
 // }
 // }
 
-
+// Lizard object??? :P
 //function that constructs and returns lizard object
 function newCat(){
   var randFname = Math.floor(Math.random() * (fnames.length))
