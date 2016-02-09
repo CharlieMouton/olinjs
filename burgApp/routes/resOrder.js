@@ -22,12 +22,18 @@ routes.placeOrder = function(req, res) {
   restaur.find({},function(err,restaurant){
     restaurant = restaurant[0];
     ordernum = Math.floor(Math.random() * (1000 - 1)) + 1;
-    if (Object.keys(req.body).length > 2){
-      console.log({id:zeroFill(ordernum,4), bread:req.body.bun, meat:req.body.meat, toppings:req.body.toppings, cost:8.00});
-      restaurant.orders.push({id:zeroFill(ordernum,4), bread:req.body.bun, meat:req.body.meat, toppings:req.body.toppings, cost:8.00})
+    console.log(req.body);
+    var tops = []
+    if (Object.keys(req.body).length > 1){
+      Object.keys(req.body).forEach(function(element,index,array){
+        tops.push(req.body[element]);
+      })
+      tops.splice(-2,2)
+      order = {id:zeroFill(ordernum,4), bread:req.body.bun, meat:req.body.meat, toppings:tops, cost:8.00}
+      restaurant.orders.push(order)
       restaur.update({name: 'Gotham City'},{orders:restaurant.orders})
       restaurant.save()
-      res.json({id:zeroFill(ordernum,4), bread:req.body.bun, meat:req.body.meat, toppings:req.body.toppings, cost:8.00});
+      res.json(order);
     } else {
       order = premade.filter(function(element,index,array){return element.id==req.body.premade})[0]
       order.id = zeroFill(ordernum,4)
@@ -47,11 +53,14 @@ routes.resolveOrder = function(req, res) {
   restaur.find({}, function(err, restaurant){
     restaurant = restaurant[0]
     console.log(req.body);
-    restaurant.orders.pull({_id:req.body.orders})
-    // console.log(restaurant.orders);
+    console.log(Object.keys(req.body));
+    Object.keys(req.body).forEach(function(element,index,array){
+      console.log(req.body[element]);
+      restaurant.orders.pull({_id:req.body[element]})
+    })
+    console.log(restaurant.orders);
     restaur.update({name: 'Gotham City'},{orders:restaurant.orders})
     restaurant.save(function (err, order){
-    console.log(order);
     res.json({order:"Heyo"})
     })
     // console.log(restaurant.orders);

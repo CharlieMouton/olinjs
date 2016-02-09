@@ -1,0 +1,23 @@
+<h1> Ingredients </h1>
+
+
+<table style="width:500px">
+  <tr>
+    <th><h3>Ingredient</h3></th>
+    <th><h3>Cost</h3></th>
+    <th><h3>Out of Stock?</h3></th>
+    <th><!--Submit edit column--><div> </div></th>
+
+  {{#each ingredients}}
+    </tr>
+      <form name='{{this.name}}'>
+        <div>
+          <td><h4> {{this.name}} </h4></td>
+          <td><h4> {{this.cost}} </h4></td>
+        </div>  
+        <td> <input type="checkbox" name='orders' value="{{this._id}}"> </td>
+        <td> <input type ='button' value='edit'> <td>
+      </form>
+      <br> </br>
+    </tr>
+{{/each}}

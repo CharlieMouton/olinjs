@@ -1,8 +1,7 @@
-var $form = $("#ingredients");
+var $ingredform = $("#ingredients");
 
 var onSuccess = function(data, status) {
-  var img = "<img src='"+data+"'/>";
-  $("#result").html(img);
+
 };
 
 var onError = function(data, status) {
@@ -10,14 +9,25 @@ var onError = function(data, status) {
   console.log("error", data);
 };
 
-$form.submit(function(event) {
-  event.preventDefault();
-  var order = $form.find("[name='mood']:checked").val();
-  var name = $form.find("[name='name']").val();
-  $.get("getCat", {
-    mood: mood,
-    name: name
-  })
-    .done(onSuccess)
-    .error(onError);
+// $ingredform.click(function(event) {
+//   event.preventDefault();
+//   console.log('yes?');
+
+$("table tr").on('click', function(e){
+  var row = $(this).closest('tr').contents().has('h4')
+$.each(row, function(index,element){
+  console.log(element);
+  var txt = $(element).text()
+  console.log(txt);
+  $(element).html("<input type='text' value='" + txt + "'>")
+})
+  // row.html("<input type='text' value='default value'>");
 });
+
+
+//   $.post("ingredients", {
+//
+//   })
+//     .done(onSuccess)
+//     .error(onError);
+// });

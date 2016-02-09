@@ -5,7 +5,8 @@ var burgSchema = mongoose.Schema({
   name: String,
   ingredients: [{
     name: String,
-    cost: Number
+    cost: Number,
+    inStock: Boolean
   }],
   toppings: Array,
   ordernum: Number,

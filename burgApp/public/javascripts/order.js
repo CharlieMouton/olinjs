@@ -1,9 +1,9 @@
-var $form = $("#order");
+var $orderform = $("#order");
 
 var onSuccess = function(data, status) {
-  console.log(data);
+  // console.log(data);
   var toppings = data.toppings //""
-  console.log(data.toppings);
+  // console.log(data.toppings);
   // data.toppings.forEach(function(element, index, array){
   //   toppings = toppings + ", "+ element
   // })
@@ -16,24 +16,31 @@ var onError = function(data, status) {
   console.log("error", data);
 };
 
-$form.submit(function(event) {
+$orderform.submit(function(event) {
   event.preventDefault();
-  var vals = $form.val()
-  var toppings = $form.find("[name='toppings']:checked");
-  var premade = $form.find("[name='premade']:checked").attr('value')
-  console.log(premade);
-  var bun = $form.find("[name='bun']:checked");
-  var meat = $form.find("[name='meat']:checked");
-  // console.log(premade);
+  var vals = {}
+  var toppings = $orderform.find("[name='toppings']:checked");
+  $.each(toppings,function(index, element){
+    // console.log(element);
+    vals[index] = $(element).attr('value')
+  })
+  // console.log(toppings);
+  // console.log(vals);
+  var premade = $orderform.find("[name='premade']:checked").attr('value')
+  var bun = $orderform.find("[name='bun']:checked");
+  var meat = $orderform.find("[name='meat']:checked");
+  // console.log(meat.attr('value'));
   if (premade) {
+    // console.log('premade');
     $.post("order",{
       premade: premade
     })
     .done(onSuccess)
     .error(onError)
   } else {
+    // console.log('custom');
     $.post("order",{
-      toppings: toppings.attr('value'),
+      toppings: vals,
       bun: bun.attr('value'),
       meat: meat.attr('value')
   })

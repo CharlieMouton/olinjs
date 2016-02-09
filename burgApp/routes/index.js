@@ -6,12 +6,14 @@ var kitchen = function(req, res) {
   restaurant.find({}, function(err, restaurant){
     restaurant = restaurant[0]
     // These repopulate current document with orders if there are none
-    // if (restaurant.orders == "") {
-      // restaurant.orders = [
-      //   { "id" : '0001', "bread" : "Wheat Bun", "meat" : 'Ground Beef Patty', "toppings" : [ "Ground Beef", "Cheese" ], "cost" : 4.5 },
-      //   { "id" : '0002', "bread" : "White Bun", "meat" : 'Grilled Chicken', "toppings" : [ "Lettuce", "Ketchup", "Grilled Onions", "Mushrooms" ], "cost" : 5.26 },
-      //   { "id" : '0003', "bread" : "White Bun", "meat" : "Vegetarian Patty", "toppings" : [ "Bacon", "Bacon", "Mayonnaise" ], "cost" : 3.54 }
-      // ]
+    if (restaurant.orders == "") {
+      restaurant.orders = [
+        { "id" : '0001', "bread" : "Wheat Bun", "meat" : 'Ground Beef Patty', "toppings" : [ "Ground Beef", "Cheese" ], "cost" : 4.5 },
+        { "id" : '0002', "bread" : "White Bun", "meat" : 'Grilled Chicken', "toppings" : [ "Lettuce", "Ketchup", "Grilled Onions", "Mushrooms" ], "cost" : 5.26 },
+        { "id" : '0003', "bread" : "White Bun", "meat" : "Vegetarian Patty", "toppings" : [ "Bacon", "Bacon", "Mayonnaise" ], "cost" : 3.54 }
+      ]
+    restaurant.save()
+    }
     //   // Updating db with Schema changes
     //   restaurant.toppings = ["Lettuce","Bacon","Grilled Onions","Tomato","Mayonnaise","Ketchup","Mushrooms","Cheese","Mystery Sauce"];
     //   restaurant.buns = ['White Bun','Wheat Bun','Pretzel Bun','Sourdough Bun'];
@@ -36,8 +38,7 @@ var kitchen = function(req, res) {
     //     {name: "Cheese", cost: 0.10},
     //     {name:"Mystery Sauce", cost:0.02}
     //   ]
-    //   restaurant.save()
-    // }
+
   res.render("kitchen",{orders: restaurant.orders})
   });
 }
@@ -52,13 +53,6 @@ var order = function(req, res){
     restaurant = restaurant[0]
     console.log(restaurant.ordernum);
     res.render("order",{orders: restaurant.orders, toppings: restaurant.toppings, buns: restaurant.buns, meats: restaurant.meats, premade:premade})
-  });
-}
-
-var ingredients = function(req, res){
-  restaurant.find({}, function(err, restaurant){
-    console.log(restaurant.ingredients);
-    res.render("home",'.')
   });
 }
 

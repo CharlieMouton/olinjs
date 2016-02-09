@@ -1,4 +1,4 @@
-var $form = $("#kitchen");
+var $kitchform = $("#kitchen");
 
 var onError = function(data, status) {
   console.log("status", status);
@@ -12,15 +12,19 @@ var whatwhat = function(data, status) {
 
 $("#kitchen").submit(function(event) {
   event.preventDefault();
-  var value = $("#kitchen").find("[name='orders']:checked").attr('value');
+  var vals = {}
+  var value = $("#kitchen").find("[name='orders']:checked");
   // console.log(value);
 // // Attempt to be able to resolve multiple orders
-  // order.forEach(function(element,index,array){
-  //   vals.push(element.attr('value'))
-  // })
-  $.post("kitchen",{
-    orders: value
+  $.each(value,function(index, element){
+    console.log(element);
+    vals[index] = $(element).attr('value')
   })
+// vals = $.param( vals, true)
+  console.log(vals);
+  // $.ajax("kitchen", { orders: vals, traditional: true, dataType: "json" });
+  $.post("kitchen",vals)
+
   .done(function(data, status) {
     console.log(data);
     $("[name='orders']:checked").parent().html("Order Resolved!");

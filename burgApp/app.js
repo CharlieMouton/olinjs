@@ -22,7 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/kitchen', index.kitchen);
 app.post('/kitchen', resOrder.resolveOrder);
-app.get('/ingredients', index.ingredients);
+app.get('/ingredients', ingredients.home);
+// app.post('/ingredients', index.addIngred);
 app.get('/order', index.order);
 app.post('/order', resOrder.placeOrder);
 
