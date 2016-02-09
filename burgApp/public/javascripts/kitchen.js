@@ -1,26 +1,29 @@
 var $form = $("#kitchen");
 
-var onSuccess = function(data, status) {
-  // console.log(data);
-  $("[name='orders']:checked").parent().html("Order Resolved!");
-};
-
 var onError = function(data, status) {
   console.log("status", status);
   console.log("error", data);
 };
 
-$form.submit(function(event) {
+var whatwhat = function(data, status) {
+  console.log(data);
+  $("[name='orders']:checked").parent().html("Order Resolved!");
+};
+
+$("#kitchen").submit(function(event) {
   event.preventDefault();
-  var vals = []
-  var order = $form.find("[name='orders']:checked");
+  var value = $("#kitchen").find("[name='orders']:checked").attr('value');
+  // console.log(value);
 // // Attempt to be able to resolve multiple orders
   // order.forEach(function(element,index,array){
   //   vals.push(element.attr('value'))
   // })
   $.post("kitchen",{
-    orders: order.attr('value')
+    orders: value
   })
-    .done(onSuccess)
-    .error(onError);
+  .done(function(data, status) {
+    console.log(data);
+    $("[name='orders']:checked").parent().html("Order Resolved!");
+  })
+  .error(onError);
 });

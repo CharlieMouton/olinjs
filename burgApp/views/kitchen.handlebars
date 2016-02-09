@@ -2,7 +2,11 @@
 <form id="kitchen">
 <ul>
 {{#each orders}}
-  <span><li><input type="checkbox" name='orders' value="{{this._id}}" </br> {{this.id}}:  <ul>{{#each this.toppings}} <li> {{this}} </li> {{/each}} <li> on {{this.bread}} bread </li> </ul></li> {{/each}} </span>
+  <span><li><input type="checkbox" name='orders' value="{{this._id}}" </br> {{this.id}}:
+     <ul>{{#each this.toppings}}
+       <li> {{this}} </li> {{/each}}
+       <li> on {{this.bread}} bread </li> </ul>
+     </li> {{/each}} </span>
 </ul>
 <input type="submit" value="Order Up!">
 </form>
