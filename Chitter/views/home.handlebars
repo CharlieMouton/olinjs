@@ -1,0 +1,49 @@
+<h1> Chitter </h1>
+<div id="main">
+  <div class="container">
+    <div>
+      <div class="item" id='chatsubmit'>
+        <span text-align="left" id="loggedin" style="display:none"> Have something to chitter chat about? </span>
+        <span text-align="left" id="notloggedin" style="display:block"> Log in to chitter chat! </span>
+        <br></br>
+        <form id="chat">
+          <input type="text" disabled=""> </input>
+          <input type="submit" value="Post" disabled=""></input>
+        </form>
+      </div>
+      <br></br>
+      {{#each chats}}
+        <div class="item" id="chatdisp">
+          <span class="namedisp"> {{userdetails.username}} chatted</span>
+          <br></br>
+          {{content}}
+          <br></br>
+          <span class="timedisp"> at {{dateposted}}. </span>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class='container' id="userlist">
+    <div class = "item" id="Logincard">
+      <form id="login">
+        <span id="logincreds" style="display:block">
+          username:<input type="text" name="username"></input>
+          <!-- <input type="text" value="name"></input> -->
+          <br></br>
+        </span>
+        <span id="logindisp" style="display:none">
+          Your are logged in as <span id="loggedinuser"> {{loggedinuser}} </span>!
+          <br></br>
+        </span>
+        <span> <input id="loginbutton" type="button" value="Log in" style="display:block"></input></span>
+        <span > <input id="logoutbutton" type="button" value="Log out" style="display:none"></input></span>
+      </form>
+    </div>
+      {{#each users}}
+        <div class="item">
+          {{username}}
+        </div>
+      {{/each}}
+  </div>
+</div>

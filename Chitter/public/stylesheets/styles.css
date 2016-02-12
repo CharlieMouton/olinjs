@@ -1,0 +1,60 @@
+#main {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;;
+  align-content: flex-start;
+}
+
+
+.container {
+  display: flex;
+  display:inline-block;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  background-color: #eeeeee;
+  /*box-shadow: 5pt 15pt;*/
+  float: left;
+  border: 5px 5px 30px 30px;
+}
+
+.item {
+  flex-grow: 1;
+  flex-basis: auto;
+  /*border-style: solid;
+  border-width: 5px;*/
+  background-color: #ffffff;
+  padding: 0.5cm;
+  box-shadow: 1pt 1.5pt 5px rgb(54, 54, 54);
+  margin: 20px 20px 20px 20px;
+}
+
+.namedisp {
+  float: left;
+}
+
+.timedisp {
+  float: right;
+}
+
+#logincard {
+  text-align: center;
+}
+
+#chatsubmit {
+
+}
+
+#chatdisp {
+
+}
+
+#userlist {
+  display:inline-block;
+  padding-left: 20px
+  float: left;
+  margin: 5px 5px 20px 20px;
+
+}
