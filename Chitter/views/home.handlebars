@@ -7,8 +7,8 @@
         <span text-align="left" id="notloggedin" style="display:block"> Log in to chitter chat! </span>
         <br></br>
         <form id="chat">
-          <input type="text" disabled=""> </input>
-          <input type="submit" value="Post" disabled=""></input>
+          <input id="chatbox" type="text" disabled=""> </input>
+          <input id="chatsubmitbutton" type="submit" value="Post" disabled=""> </input>
         </form>
       </div>
       <br></br>
@@ -33,7 +33,7 @@
           <br></br>
         </span>
         <span id="logindisp" style="display:none">
-          Your are logged in as <span id="loggedinuser"> {{loggedinuser}} </span>!
+          Your are logged in as <span id="loggedinuser">{{loggedinuser}}</span>!
           <br></br>
         </span>
         <span> <input id="loginbutton" type="button" value="Log in" style="display:block"></input></span>

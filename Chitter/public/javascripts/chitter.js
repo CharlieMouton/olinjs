@@ -1,6 +1,16 @@
 var $chatform = $("#chat");
 var $loginform = $("#login")
 
+var value = $("#loggedinuser").text()
+if (value != "guest"){
+  $("#logindisp").show()
+  $("#logincreds").hide()
+  $("#loginbutton").hide()
+  $("#logoutbutton").show()
+  $('#chatbox').prop('disabled',false);
+  $('#chatsubmitbutton').prop('disabled',false);
+}
+
 var onError = function(data, status) {
   console.log("status", status);
   console.log("error", data);
@@ -11,7 +21,11 @@ var login_onSuccess = function(data, status) {
   $("#logincreds").hide()
   $("#loginbutton").hide()
   $("#logoutbutton").show()
+  console.log(data.user);
+  $("#loggedinuser").text(data.user);
   console.log('logged in');
+  $('#chatbox').prop('disabled',false);
+  $('#chatsubmitbutton').prop('disabled',false);
 };
 
 var logout_onSuccess = function(data, status) {
@@ -19,6 +33,8 @@ var logout_onSuccess = function(data, status) {
   $("#logincreds").show()
   $("#loginbutton").show()
   $("#logoutbutton").hide()
+  $('#chatbox').prop('disabled',true);
+  $('#chatsubmitbutton').prop('disabled',true);
 };
 
 $("#loginbutton").click(function(event) {
@@ -26,7 +42,7 @@ $("#loginbutton").click(function(event) {
   console.log($("[value='Log in']"));
   // if ($("[value='Log in']")){
     console.log('log in');
-    var value = $(this).find("[name='username']").val();
+    var value = $("#logincreds").find(":input").val();
     console.log(value);
     $.post("chitter",{
       username:value,

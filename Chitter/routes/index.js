@@ -14,7 +14,7 @@ var home = function(req, res) {
           element.userdetails =  _.find(users,{"id":element.user_id});
         });
         users.forEach(function(element,index,array){
-          console.log(element.username,element.loggedin);
+          // console.log(element.username,element.loggedin);
           if (element.loggedin){
             loggedinuser = element.username
           }
@@ -26,23 +26,34 @@ var home = function(req, res) {
 };
 
 var login = function(req,res){
-  console.log(req.body.username);
-  console.log(typeof req.body.login,req.body.logout);
-  if (Boolean(req.body.login)){
-    var activeuser = User.update({username:req.body.username},{$set: {loggedin:true}},function(err,record){
-      console.log(req.body.username, "is logged in");
-      res.json({user: req.body.username})
-    })
-  } else { //if (req.body.logout)
-    var user = User.update({username:req.body.username},{$set: {loggedin:false}},function(err,record){
-      console.log(req.body.username, "is logged out");
-      res.json({user: req.body.username})
-    })
-  }
-};
-
-
-
+  var usernames = []
+  chatlist = Chat.find({name:{$exists:false}},function(err,chats){
+    userlist = User.find({name:{$exists:true}},function(err,users){
+      users.forEach(function(element,index,array){
+        usernames.push(element.username)
+      });
+      console.log(usernames);
+      if (usernames.includes(req.body.username)){
+        if (req.body.login=="true"){
+          User.update({username:req.body.username},{$set: {loggedin:true}},function(err,record){
+            res.json({user: req.body.username})
+          })
+        } else if(req.body.logout=="true"){
+          User.update({username:req.body.username},{$set: {loggedin:false}},function(err,record){
+            res.json({user: req.body.username})
+          })
+        }
+      } else {
+        User.create({
+          name: "",
+          username: req.body.username,
+          loggedin: true,
+          datejoined: Date()
+        });
+      }
+    });
+  });
+}
 
 module.exports.home = home;
 module.exports.login = login;
