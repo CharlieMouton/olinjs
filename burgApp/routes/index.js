@@ -14,30 +14,6 @@ var kitchen = function(req, res) {
       ]
     restaurant.save()
     }
-    //   // Updating db with Schema changes
-    //   restaurant.toppings = ["Lettuce","Bacon","Grilled Onions","Tomato","Mayonnaise","Ketchup","Mushrooms","Cheese","Mystery Sauce"];
-    //   restaurant.buns = ['White Bun','Wheat Bun','Pretzel Bun','Sourdough Bun'];
-    //   restaurant.ordernum = 0;
-    //   restaurant.meats = ['Ground Beef Patty','Grilled Chicken','Fried Chicken','Vegetarian Patty'];
-    //   restaurant.ingredients = [
-    //     {name:"Lettuce",cost: 0.04},
-    //     {name:"Grilled Chicken",cost: 0.04},
-    //     {name:"Fried Chicken",cost: 0.04},
-    //     {name:"Vegetarian Patty",cost: 0.04},
-    //     {name:"White Bun",cost: 0.04},
-    //     {name:"Wheat Bun",cost: 0.04},
-    //     {name:"Pretzel Bun",cost: 0.04},
-    //     {name:"Sourdough Bun",cost: 0.04},
-    //     {name: "Ground Beef Patty", cost: 0.35},
-    //     {name: "Bacon", cost: 0.42},
-    //     {name: "Grilled Onions", cost: 0.07},
-    //     {name:"Tomato", cost: 0.03},
-    //     {name: "Mayonnaise", cost: 0.04},
-    //     {name:"Ketchup", cost: 0.02},
-    //     {name: "Mushrooms", cost: 0.06},
-    //     {name: "Cheese", cost: 0.10},
-    //     {name:"Mystery Sauce", cost:0.02}
-    //   ]
 
   res.render("kitchen",{orders: restaurant.orders})
   });
@@ -60,4 +36,4 @@ var order = function(req, res){
 
 module.exports.kitchen = kitchen;
 module.exports.order = order;
-module.exports.ingredients = ingredients;
+// module.exports.ingredients = ingredients;

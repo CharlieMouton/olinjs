@@ -13,3 +13,6 @@ var addIngred = function(req,res){
     res.render('ingredients',{ingredients:restaurant[0].ingredients})
   });
 }
+
+module.exports.home = home;
+module.exports.addIngred = addIngred;
