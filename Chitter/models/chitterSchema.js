@@ -18,7 +18,8 @@ var userSchema = mongoose.Schema({
   password: String,
   loggedin: Boolean,
   datejoined: { type: Date, default: Date()},
-})
+  __v : Number
+});
 
 userSchema.methods.authenticate = function(password){
     return (this.password === pwd);

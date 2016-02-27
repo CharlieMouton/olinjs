@@ -69,7 +69,7 @@ $("#logoutbutton").click(function(event){
   console.log("log out");
   var value = $("#loggedinuser").text()
   console.log(value);
-  $.post("chitter",{
+  $.post("/chitter/logout",{
     username:value,
     login:false,
     logout:true

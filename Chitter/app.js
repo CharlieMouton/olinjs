@@ -22,7 +22,7 @@ passport.serializeUser(function(user, done){
   done(null, user.id);
 });
 passport.deserializeUser(function(id, done){
-  User.findbyId(id, function(err,user){
+  User.findOne({'id':id}, function(err,user){
     done(err, user);
   });
 });
@@ -45,8 +45,9 @@ passport.use('local-signup', new LocalStrategy(
             facebook: {},
             loggedin: true,
             datejoined: Date()
-          })
-        };
+          }, function(err, user) {
+            return done(null, user);
+          })};
       });
     }
   ));
@@ -75,16 +76,20 @@ app.get('/chitter/login', index.login)
 // });
 
 app.post('/chitter/signup', passport.authenticate('local-signup', {
-  successRedirect: '/chitter/home',
+  successRedirect: '/chitter/home/verify',
   failureRedirect: '/chitter/login',
 }));
 
-app.get('chitter/logout', function(req,res){
+app.post('/chitter/logout', function(req,res){
+  console.log(req.body);
   req.logout();
-  req.redirect('/');
-})
+  User.update({'username':req.body.username},{$set: {loggedin:false}},function(err,record){
+    res.redirect('/chitter/login');
+  });
+});
 
-app.get('/chitter/home', isLoggedIn, index.home);
+app.get('/chitter/home/verify', isLoggedIn, index.home);
+app.get('/chitter/home', index.home);
 app.post('/chitter/home', index.home); //
 
 
@@ -94,11 +99,11 @@ app.post('/chitter/home', index.home); //
 app.listen(3000);
 
 function isLoggedIn(req, res, next){
-  console.log(req);
-  if (req.authenticate()){
+  console.log();
+  if (req.isAuthenticated()){
     return next();
   }
-  res.redirect('/home');
+  res.redirect('/chitter/home');
 }
 
 module.exports = app;

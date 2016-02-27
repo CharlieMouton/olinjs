@@ -6,17 +6,20 @@ var User = chitter.user;
 
 
 var home = function(req, res) {
+  console.log('home');
+  console.log(req.body);
   var loggedinuser = "guest"
-  chatlist = Chat.find({name:{$exists:false}},function(err,chats){
-    userlist = User.find({name:{$exists:true}},function(err,users){
+  chatlist = Chat.find({username:{$exists:false}},function(err,chats){
+    userlist = User.find({username:{$exists:true}},function(err,users){
         chats.forEach(function(element,index,array){
           var userid = element.user_id;
           element.userdetails =  _.find(users,{"id":element.user_id});
         });
         users.forEach(function(element,index,array){
-          // console.log(element.username,element.loggedin);
+          console.log(element.username,element.loggedin);
           if (element.loggedin){
-            loggedinuser = element.username
+            loggedinuser = element.username;
+            console.log(loggedinuser);
           }
         })
         // console.log(chats[0].userdetails.username);
@@ -26,6 +29,11 @@ var home = function(req, res) {
 };
 
 var login = function(req,res){
+  console.log("redirecting to login screen");
+  res.render('login')
+}
+
+
   // var usernames = []
   // chatlist = Chat.find({name:{$exists:false}},function(err,chats){
   //   userlist = User.find({name:{$exists:true}},function(err,users){
@@ -53,8 +61,6 @@ var login = function(req,res){
   //     }
   //   });
   // });
-  res.render('login')
-}
 
 module.exports.home = home;
 module.exports.login = login;
