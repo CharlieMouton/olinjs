@@ -8,10 +8,20 @@ var chatSchema = mongoose.Schema({
 });
 
 var userSchema = mongoose.Schema({
-  name: String,
   username: String,
+  facebook: {
+    id: String,
+    token: String,
+    email: String,
+    name: String
+  },
+  password: String,
   loggedin: Boolean,
-  datejoined: { type: Date, default: Date()}
+  datejoined: { type: Date, default: Date()},
 })
+
+userSchema.methods.authenticate = function(password){
+    return (this.password === pwd);
+  }
 
 module.exports = {chat:mongoose.model("chat", chatSchema,'chitter'), user:mongoose.model("user", userSchema,'chitter')};

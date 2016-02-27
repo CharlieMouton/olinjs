@@ -26,33 +26,34 @@ var home = function(req, res) {
 };
 
 var login = function(req,res){
-  var usernames = []
-  chatlist = Chat.find({name:{$exists:false}},function(err,chats){
-    userlist = User.find({name:{$exists:true}},function(err,users){
-      users.forEach(function(element,index,array){
-        usernames.push(element.username)
-      });
-      console.log(usernames);
-      if (usernames.includes(req.body.username)){
-        if (req.body.login=="true"){
-          User.update({username:req.body.username},{$set: {loggedin:true}},function(err,record){
-            res.json({user: req.body.username})
-          })
-        } else if(req.body.logout=="true"){
-          User.update({username:req.body.username},{$set: {loggedin:false}},function(err,record){
-            res.json({user: req.body.username})
-          })
-        }
-      } else {
-        User.create({
-          name: "",
-          username: req.body.username,
-          loggedin: true,
-          datejoined: Date()
-        });
-      }
-    });
-  });
+  // var usernames = []
+  // chatlist = Chat.find({name:{$exists:false}},function(err,chats){
+  //   userlist = User.find({name:{$exists:true}},function(err,users){
+  //     users.forEach(function(element,index,array){
+  //       usernames.push(element.username)
+  //     });
+  //     console.log(usernames);
+  //     if (usernames.includes(req.body.username)){
+  //       if (req.body.login=="true"){
+  //         User.update({username:req.body.username},{$set: {loggedin:true}},function(err,record){
+  //           res.json({user: req.body.username})
+  //         })
+  //       } else if(req.body.logout=="true"){
+  //         User.update({username:req.body.username},{$set: {loggedin:false}},function(err,record){
+  //           res.json({user: req.body.username})
+  //         })
+  //       }
+  //     } else {
+  //       User.create({
+  //         name: "",
+  //         username: req.body.username,
+  //         loggedin: true,
+  //         datejoined: Date()
+  //       });
+  //     }
+  //   });
+  // });
+  res.render('login')
 }
 
 module.exports.home = home;

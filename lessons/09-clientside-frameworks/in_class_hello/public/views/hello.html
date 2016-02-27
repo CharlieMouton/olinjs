@@ -1,4 +1,6 @@
-{{helloMessage}}
+<!-- {{helloMessage}} -->
 <br>
-<a href="/next" ng-show="nextButton">Next Page</a>
+Write some text in textbox:
+<input type="text" ng-model="sometext" />
 
+<h1 ng-show="sometext">Hello {{ sometext }}</h1>

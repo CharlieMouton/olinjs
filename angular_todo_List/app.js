@@ -10,7 +10,7 @@
     var taskModel = require("./models/taskSchema.js");
     // configuration =================
 
-    mongoose.connect('mongodb://localhost/ToDoApp');     // connect to mongoDB database on localhost
+    mongoose.connect('mongodb://user:pw@ds015398.mongolab.com:15398/tasks');     // connect to mongoDB database on localhost
 
     app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
     app.use(morgan('dev'));                                         // log every request to the console
