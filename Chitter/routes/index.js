@@ -19,11 +19,13 @@ var home = function(req, res) {
           console.log(element.username,element.loggedin);
           if (element.loggedin){
             loggedinuser = element.username;
-            console.log(loggedinuser);
+            // console.log(loggedinuser);
           }
         })
+        console.log(chats);
+        console.log(chats.sort("-user_id"));
         // console.log(chats[0].userdetails.username);
-        res.render("home",{chats:chats, users:users, loggedinuser:loggedinuser})
+        res.render("home",{chats:chats.sort({dateposted: "asc"}), users:users, loggedinuser:loggedinuser})
     });
   });
 };
@@ -32,6 +34,18 @@ var login = function(req,res){
   console.log("redirecting to login screen");
   res.render('login')
 }
+
+var newPost = function(req,res) {
+  User.findOne({username:req.body.username}, function(err,user){
+    Chat.create({
+      user_id: user._id,
+      dateposted: Date(),
+      content: req.body.body
+    }, function(err, newPost) {
+      console.log(newPost);
+      res.json(newPost);
+    })
+})};
 
 
   // var usernames = []
@@ -64,3 +78,4 @@ var login = function(req,res){
 
 module.exports.home = home;
 module.exports.login = login;
+module.exports.newPost = newPost;

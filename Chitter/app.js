@@ -31,7 +31,6 @@ passport.deserializeUser(function(id, done){
 passport.use('local-signup', new LocalStrategy(
   function(username, password, done){
     console.log("DONE", done);
-    // process.nextTick(function() {
       User.findOne({'username' : username}, function(err,user){
         if (err) {
           return done(err, user);
@@ -49,8 +48,36 @@ passport.use('local-signup', new LocalStrategy(
             return done(null, user);
           })};
       });
-    }
-  ));
+}));
+
+  passport.use('local-login', new LocalStrategy(
+   function(username, password, done) {
+       User.findOne({'username' : username}, function(err, user) {
+          if (err) {
+              return done(err);
+          }
+          if (!user) {
+            console.log("Wrong username or password.");
+            return done("Wrong username or password.", false);
+          }
+
+          // if the user is found but the password is wrong
+          // console.log(user.password);
+          // console.log(password);
+          if (!user.password === password) {
+            console.log("Wrong username or password.");
+            return done("Wrong username or password.", false);
+          }
+          // all is well, return successful user
+          console.log("UPDATING LOGGED IN USER");
+          User.update({'username':username},{$set: {loggedin:true}},function(err,record){
+            console.log("User is logged in!");
+          });
+          return done(null, user);
+       });
+
+   }));
+
 
 var app = express();
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -71,9 +98,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.get('/chitter/login', index.login)
-// app.post('/login', function(req,res){
-//   // Insert passport login stuff here.
-// });
+app.post('/chitter/login', passport.authenticate('local-login', {
+  successRedirect: '/chitter/home/verify',
+  failureRedirect: '/chitter/login',
+}));
 
 app.post('/chitter/signup', passport.authenticate('local-signup', {
   successRedirect: '/chitter/home/verify',
@@ -81,16 +109,20 @@ app.post('/chitter/signup', passport.authenticate('local-signup', {
 }));
 
 app.post('/chitter/logout', function(req,res){
-  console.log(req.body);
+  // console.log(req.body);
   req.logout();
   User.update({'username':req.body.username},{$set: {loggedin:false}},function(err,record){
-    res.redirect('/chitter/login');
+    // pass
   });
+  console.log('should be redirecting');
+  res.end('.')
 });
 
 app.get('/chitter/home/verify', isLoggedIn, index.home);
 app.get('/chitter/home', index.home);
 app.post('/chitter/home', index.home); //
+
+app.post('/chitter/newpost', index.newPost);
 
 
 
@@ -100,7 +132,7 @@ app.listen(3000);
 
 function isLoggedIn(req, res, next){
   console.log();
-  if (req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     return next();
   }
   res.redirect('/chitter/home');

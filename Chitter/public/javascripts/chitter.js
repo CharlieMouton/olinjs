@@ -28,6 +28,11 @@ var login_onSuccess = function(data, status) {
   $('#chatsubmitbutton').prop('disabled',false);
 };
 
+var newPost_onSuccess = function(data,status) {
+  console.log("New post:", data);
+  $("#chatbox").val("");
+}
+
 var logout_onSuccess = function(data, status) {
   $("#logindisp").hide()
   $("#logincreds").show()
@@ -35,6 +40,7 @@ var logout_onSuccess = function(data, status) {
   $("#logoutbutton").hide()
   $('#chatbox').prop('disabled',true);
   $('#chatsubmitbutton').prop('disabled',true);
+  window.location.href = "http://localhost:3000/chitter/login";
 };
 
 $("#loginbutton").click(function(event) {
@@ -44,7 +50,7 @@ $("#loginbutton").click(function(event) {
     console.log('log in');
     var value = $("#logincreds").find(":input").val();
     console.log(value);
-    $.post("chitter",{
+    $.post("chitter/logout",{
       username:value,
       login:true,
       logout:false
@@ -75,5 +81,22 @@ $("#logoutbutton").click(function(event){
     logout:true
   })
     .done(logout_onSuccess)
+    .error(onError);
+});
+
+$("#chatsubmitbutton").click(function(event){
+  event.preventDefault();
+  console.log("chat submitted");
+  var value = $("#loggedinuser").text()
+  var body = $("#chatbox").val()
+  console.log(body);
+  console.log(value);
+  $.post("/chitter/newpost",{
+    body:body,
+    username:value,
+    login:false,
+    logout:false
+  })
+    .done(newPost_onSuccess)
     .error(onError);
 });
